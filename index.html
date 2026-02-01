@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Энетриум - Революция в банковском деле</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Notification System -->
+    <div id="notification" class="notification"></div>
+
+```
+<!-- Main Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">ЭНЕТРИУМ</span>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-btn" onclick="showPage('home')">Главная</button>
+            <button class="nav-btn" onclick="showPage('login')">Личный кабинет</button>
+            <button class="nav-btn" onclick="showPage('atm')">Банкомат</button>
+            <button class="nav-btn admin-btn" onclick="showPage('admin-login')">Админ</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Home Page -->
+<div id="home-page" class="page active">
+    <div class="hero-section">
+        <div class="glitch-container">
+            <h1 class="hero-title glitch" data-text="ЭНЕТРИУМ">ЭНЕТРИУМ</h1>
+        </div>
+        <p class="hero-subtitle">Революция на стыке банковского дела и биржи</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Мгновенные переводы</h3>
+                <p>Переводите средства в режиме реального времени с помощью квантовых протоколов</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Биржевая интеграция</h3>
+                <p>Прямой доступ к торговым площадкам и криптовалютным биржам</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Безопасность</h3>
+                <p>Защита на уровне военных стандартов с использованием блокчейн-технологий</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Кредиты будущего</h3>
+                <p>Моментальное одобрение кредитов с помощью AI-анализа</p>
+            </div>
+        </div>
+
+        <button class="cta-button" onclick="showPage('login')">
+            <span>Начать сейчас</span>
+            <span class="cta-arrow">→</span>
+        </button>
+    </div>
+</div>
+
+<!-- User Login Page -->
+<div id="login-page" class="page">
+    <div class="auth-container">
+        <h2 class="auth-title">Вход в систему</h2>
+        <form id="login-form" class="auth-form">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти</button>
+            <button type="button" class="submit-btn secondary" onclick="showRegister()">Регистрация</button>
+        </form>
+    </div>
+</div>
+
+<!-- User Dashboard -->
+<div id="dashboard-page" class="page">
+    <div class="dashboard-container">
+        <div class="user-header">
+            <h2>Личный кабинет</h2>
+            <button class="logout-btn" onclick="logout()">Выйти</button>
+        </div>
+
+        <div class="balance-card">
+            <div class="balance-label">Ваш баланс</div>
+            <div class="balance-amount" id="user-balance">0.00</div>
+            <div class="balance-currency">₽</div>
+        </div>
+
+        <div class="dashboard-actions">
+            <button class="action-btn" onclick="showTransferModal()">
+                <span class="btn-icon">💸</span>
+                <span>Перевести</span>
+            </button>
+            <button class="action-btn" onclick="showCreditModal()">
+                <span class="btn-icon">💰</span>
+                <span>Взять кредит</span>
+            </button>
+        </div>
+
+        <div class="transactions-section">
+            <h3>История операций</h3>
+            <div id="transactions-list" class="transactions-list"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ATM Page -->
+<div id="atm-page" class="page">
+    <div class="atm-container">
+        <h2 class="atm-title">Банкомат Энетриум</h2>
+        <p class="atm-subtitle">Запросите вывод наличных</p>
+
+        <form id="atm-form" class="atm-form">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" id="atm-username" required>
+            </div>
+            <div class="form-group">
+                <label>Сумма вывода</label>
+                <input type="number" id="atm-amount" min="100" step="100" required>
+            </div>
+            <button type="submit" class="submit-btn">Запросить вывод</button>
+        </form>
+
+        <div class="atm-status">
+            <h3>Ваши заявки</h3>
+            <div id="atm-requests-list"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Login Page -->
+<div id="admin-login-page" class="page">
+    <div class="auth-container">
+        <h2 class="auth-title">Вход для администратора</h2>
+        <form id="admin-login-form" class="auth-form">
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" id="admin-username" required>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="admin-password" required>
+            </div>
+            <button type="submit" class="submit-btn">Войти как админ</button>
+        </form>
+    </div>
+</div>
+
+<!-- Admin Dashboard -->
+<div id="admin-page" class="page">
+    <div class="admin-container">
+        <div class="user-header">
+            <h2>Панель администратора</h2>
+            <button class="logout-btn" onclick="adminLogout()">Выйти</button>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchAdminTab('credits')">Заявки на кредит</button>
+            <button class="tab-btn" onclick="switchAdminTab('atm')">Вывод через банкомат</button>
+        </div>
+
+        <div id="admin-credits-tab" class="admin-tab active">
+            <h3>Заявки на кредит</h3>
+            <div id="admin-credits-list"></div>
+        </div>
+
+        <div id="admin-atm-tab" class="admin-tab">
+            <h3>Заявки на вывод наличных</h3>
+            <div id="admin-atm-list"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Transfer Modal -->
+<div id="transfer-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('transfer-modal')">&times;</span>
+        <h3>Перевод средств</h3>
+        <form id="transfer-form">
+            <div class="form-group">
+                <label>Получатель</label>
+                <input type="text" id="transfer-recipient" required>
+            </div>
+            <div class="form-group">
+                <label>Сумма</label>
+                <input type="number" id="transfer-amount" min="1" step="0.01" required>
+            </div>
+            <button type="submit" class="submit-btn">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<!-- Credit Modal -->
+<div id="credit-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('credit-modal')">&times;</span>
+        <h3>Заявка на кредит</h3>
+        <form id="credit-form">
+            <div class="form-group">
+                <label>Сумма кредита</label>
+                <input type="number" id="credit-amount" min="1000" step="1000" required>
+            </div>
+            <div class="form-group">
+                <label>Срок (месяцев)</label>
+                <input type="number" id="credit-term" min="3" max="60" required>
+            </div>
+            <button type="submit" class="submit-btn">Подать заявку</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+```
+
+</body>
+</html>
