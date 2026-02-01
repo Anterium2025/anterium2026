@@ -5,7 +5,776 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Энетриум - Революция в банковском деле</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-color: #00ffff;
+            --secondary-color: #ff00ff;
+            --accent-color: #ffff00;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --card-bg: #1a1a2e;
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+            --success: #00ff88;
+            --error: #ff0055;
+            --warning: #ffaa00;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-light);
+        min-height: 100vh;
+        background-image: 
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+        overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+        background: rgba(10, 10, 15, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--primary-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .logo-icon {
+        color: var(--primary-color);
+        text-shadow: 0 0 10px var(--primary-color);
+        animation: pulse 2s infinite;
+    }
+
+    .logo-text {
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-menu {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .nav-btn {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-color);
+        transition: left 0.3s;
+        z-index: -1;
+    }
+
+    .nav-btn:hover::before {
+        left: 0;
+    }
+
+    .nav-btn:hover {
+        color: var(--bg-dark);
+        box-shadow: 0 0 20px var(--primary-color);
+    }
+
+    .admin-btn {
+        border-color: var(--secondary-color);
+        color: var(--secondary-color);
+    }
+
+    .admin-btn::before {
+        background: var(--secondary-color);
+    }
+
+    /* Page System */
+    .page {
+        display: none;
+        min-height: calc(100vh - 80px);
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .glitch-container {
+        margin-bottom: 2rem;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        position: relative;
+        text-shadow: 
+            0 0 10px var(--primary-color),
+            0 0 20px var(--primary-color),
+            0 0 30px var(--primary-color);
+    }
+
+    .glitch {
+        animation: glitch 3s infinite;
+    }
+
+    @keyframes glitch {
+        0%, 100% {
+            transform: translate(0);
+        }
+        20% {
+            transform: translate(-2px, 2px);
+        }
+        40% {
+            transform: translate(-2px, -2px);
+        }
+        60% {
+            transform: translate(2px, 2px);
+        }
+        80% {
+            transform: translate(2px, -2px);
+        }
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--text-gray);
+        margin-bottom: 3rem;
+    }
+
+    /* Features Grid */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .feature-card {
+        background: var(--card-bg);
+        padding: 2rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(0, 255, 255, 0.1),
+            transparent
+        );
+        transform: rotate(45deg);
+        transition: all 0.5s;
+    }
+
+    .feature-card:hover::before {
+        left: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    /* CTA Button */
+    .cta-button {
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        color: var(--bg-dark);
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    .cta-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+    }
+
+    .cta-arrow {
+        transition: transform 0.3s;
+    }
+
+    .cta-button:hover .cta-arrow {
+        transform: translateX(5px);
+    }
+
+    /* Auth Container */
+    .auth-container {
+        max-width: 400px;
+        margin: 4rem auto;
+        padding: 2rem;
+        background: var(--card-bg);
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    }
+
+    .auth-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+        font-size: 2rem;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        color: var(--text-gray);
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        background: var(--bg-darker);
+        border: 1px solid var(--primary-color);
+        color: var(--text-light);
+        padding: 0.75rem;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+    }
+
+    .submit-btn {
+        background: var(--primary-color);
+        border: none;
+        color: var(--bg-dark);
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+        background: var(--secondary-color);
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    }
+
+    .submit-btn.secondary {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .submit-btn.secondary:hover {
+        background: var(--primary-color);
+        color: var(--bg-dark);
+    }
+
+    /* Dashboard */
+    .dashboard-container,
+    .atm-container,
+    .admin-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .logout-btn {
+        background: var(--error);
+        border: none;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+        box-shadow: 0 0 15px var(--error);
+    }
+
+    .balance-card {
+        background: linear-gradient(135deg, var(--card-bg), var(--bg-darker));
+        padding: 3rem;
+        border: 2px solid var(--primary-color);
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    }
+
+    .balance-label {
+        color: var(--text-gray);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .balance-amount {
+        font-size: 3.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-shadow: 0 0 20px var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .balance-currency {
+        color: var(--text-gray);
+        font-size: 1.5rem;
+    }
+
+    .dashboard-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .action-btn {
+        background: var(--card-bg);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 1.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+    }
+
+    .action-btn:hover {
+        background: var(--primary-color);
+        color: var(--bg-dark);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 255, 255, 0.4);
+    }
+
+    .btn-icon {
+        font-size: 2rem;
+    }
+
+    /* Transactions */
+    .transactions-section {
+        background: var(--card-bg);
+        padding: 2rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+    }
+
+    .transactions-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .transactions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .transaction-item {
+        background: var(--bg-darker);
+        padding: 1rem;
+        border-left: 3px solid var(--primary-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .transaction-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .transaction-type {
+        font-weight: bold;
+    }
+
+    .transaction-date {
+        color: var(--text-gray);
+        font-size: 0.85rem;
+    }
+
+    .transaction-amount {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .transaction-amount.positive {
+        color: var(--success);
+    }
+
+    .transaction-amount.negative {
+        color: var(--error);
+    }
+
+    /* ATM */
+    .atm-title {
+        text-align: center;
+        color: var(--primary-color);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .atm-subtitle {
+        text-align: center;
+        color: var(--text-gray);
+        margin-bottom: 2rem;
+    }
+
+    .atm-form {
+        background: var(--card-bg);
+        padding: 2rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+
+    .atm-status {
+        background: var(--card-bg);
+        padding: 2rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+    }
+
+    .atm-status h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .request-item {
+        background: var(--bg-darker);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 3px solid var(--warning);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .request-status {
+        padding: 0.3rem 0.8rem;
+        border-radius: 5px;
+        font-size: 0.85rem;
+    }
+
+    .request-status.pending {
+        background: var(--warning);
+        color: var(--bg-dark);
+    }
+
+    .request-status.approved {
+        background: var(--success);
+        color: var(--bg-dark);
+    }
+
+    .request-status.rejected {
+        background: var(--error);
+        color: white;
+    }
+
+    /* Admin Panel */
+    .admin-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        flex: 1;
+    }
+
+    .tab-btn.active {
+        background: var(--primary-color);
+        color: var(--bg-dark);
+    }
+
+    .admin-tab {
+        display: none;
+    }
+
+    .admin-tab.active {
+        display: block;
+    }
+
+    .admin-tab h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+
+    .admin-request {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+    }
+
+    .request-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .request-user {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .request-details {
+        color: var(--text-gray);
+        margin-bottom: 1rem;
+    }
+
+    .request-actions {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .approve-btn,
+    .reject-btn {
+        padding: 0.5rem 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: bold;
+    }
+
+    .approve-btn {
+        background: var(--success);
+        color: var(--bg-dark);
+    }
+
+    .approve-btn:hover {
+        box-shadow: 0 0 15px var(--success);
+    }
+
+    .reject-btn {
+        background: var(--error);
+        color: white;
+    }
+
+    .reject-btn:hover {
+        box-shadow: 0 0 15px var(--error);
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: var(--card-bg);
+        padding: 2rem;
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        cursor: pointer;
+        color: var(--text-gray);
+        transition: color 0.3s;
+    }
+
+    .modal-close:hover {
+        color: var(--error);
+    }
+
+    .modal-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Notification */
+    .notification {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        z-index: 3000;
+        transform: translateX(400px);
+        transition: transform 0.3s;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .notification.show {
+        transform: translateX(0);
+    }
+
+    .notification.success {
+        background: var(--success);
+        border: 1px solid var(--success);
+    }
+
+    .notification.error {
+        background: var(--error);
+        border: 1px solid var(--error);
+    }
+
+    .notification.warning {
+        background: var(--warning);
+        color: var(--bg-dark);
+        border: 1px solid var(--warning);
+    }
+
+    /* Animations */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-menu {
+            flex-wrap: wrap;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .balance-amount {
+            font-size: 2.5rem;
+        }
+        
+        .notification {
+            right: 10px;
+            left: 10px;
+        }
+    }
+</style>
+```
+
 </head>
 <body>
     <!-- Notification System -->
@@ -223,7 +992,505 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    // Initialize database
+    function initDatabase() {
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify({}));
+        }
+        if (!localStorage.getItem('transactions')) {
+            localStorage.setItem('transactions', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('creditRequests')) {
+            localStorage.setItem('creditRequests', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('atmRequests')) {
+            localStorage.setItem('atmRequests', JSON.stringify([]));
+        }
+    }
+
+    // Current user session
+    let currentUser = null;
+    let isAdmin = false;
+
+    // Notification system
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Page navigation
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        const targetPage = document.getElementById(`${pageId}-page`);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+        
+        // Update page-specific content
+        if (pageId === 'dashboard' && currentUser) {
+            updateDashboard();
+        } else if (pageId === 'admin' && isAdmin) {
+            updateAdminPanel();
+        } else if (pageId === 'atm') {
+            updateATMRequests();
+        }
+    }
+
+    // User registration
+    function showRegister() {
+        const username = prompt('Введите имя пользователя для регистрации:');
+        if (!username) return;
+        
+        const password = prompt('Введите пароль:');
+        if (!password) return;
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        if (users[username]) {
+            showNotification('Пользователь уже существует!', 'error');
+            return;
+        }
+        
+        users[username] = {
+            password: password,
+            balance: 10000, // Starting balance
+            createdAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem('users', JSON.stringify(users));
+        showNotification('Регистрация успешна! Теперь можете войти.', 'success');
+    }
+
+    // User login
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        if (users[username] && users[username].password === password) {
+            currentUser = username;
+            showNotification(`Добро пожаловать, ${username}!`, 'success');
+            showPage('dashboard');
+            document.getElementById('login-form').reset();
+        } else {
+            showNotification('Неверное имя пользователя или пароль!', 'error');
+        }
+    });
+
+    // Logout
+    function logout() {
+        currentUser = null;
+        showNotification('Вы вышли из системы', 'success');
+        showPage('home');
+    }
+
+    // Update dashboard
+    function updateDashboard() {
+        if (!currentUser) return;
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        const balance = users[currentUser].balance;
+        
+        document.getElementById('user-balance').textContent = balance.toFixed(2);
+        
+        // Update transactions
+        const transactions = JSON.parse(localStorage.getItem('transactions'));
+        const userTransactions = transactions.filter(t => 
+            t.from === currentUser || t.to === currentUser
+        );
+        
+        const transactionsList = document.getElementById('transactions-list');
+        
+        if (userTransactions.length === 0) {
+            transactionsList.innerHTML = '<p style="color: var(--text-gray);">Нет транзакций</p>';
+        } else {
+            transactionsList.innerHTML = userTransactions
+                .slice(-10)
+                .reverse()
+                .map(t => {
+                    const isIncoming = t.to === currentUser;
+                    const amount = isIncoming ? `+${t.amount}` : `-${t.amount}`;
+                    const amountClass = isIncoming ? 'positive' : 'negative';
+                    
+                    return `
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-type">${t.type}</div>
+                                <div class="transaction-date">${new Date(t.date).toLocaleString('ru-RU')}</div>
+                            </div>
+                            <div class="transaction-amount ${amountClass}">${amount} ₽</div>
+                        </div>
+                    `;
+                }).join('');
+        }
+    }
+
+    // Transfer modal
+    function showTransferModal() {
+        document.getElementById('transfer-modal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Transfer form
+    document.getElementById('transfer-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const recipient = document.getElementById('transfer-recipient').value;
+        const amount = parseFloat(document.getElementById('transfer-amount').value);
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        if (!users[recipient]) {
+            showNotification('Получатель не найден!', 'error');
+            return;
+        }
+        
+        if (users[currentUser].balance < amount) {
+            showNotification('Недостаточно средств!', 'error');
+            return;
+        }
+        
+        // Execute transfer
+        users[currentUser].balance -= amount;
+        users[recipient].balance += amount;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Add transaction
+        const transactions = JSON.parse(localStorage.getItem('transactions'));
+        transactions.push({
+            id: Date.now(),
+            type: 'Перевод',
+            from: currentUser,
+            to: recipient,
+            amount: amount,
+            date: new Date().toISOString()
+        });
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        
+        showNotification(`Перевод ${amount} ₽ для ${recipient} выполнен!`, 'success');
+        closeModal('transfer-modal');
+        document.getElementById('transfer-form').reset();
+        updateDashboard();
+    });
+
+    // Credit modal
+    function showCreditModal() {
+        document.getElementById('credit-modal').classList.add('active');
+    }
+
+    // Credit form
+    document.getElementById('credit-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const amount = parseFloat(document.getElementById('credit-amount').value);
+        const term = parseInt(document.getElementById('credit-term').value);
+        
+        const creditRequests = JSON.parse(localStorage.getItem('creditRequests'));
+        
+        creditRequests.push({
+            id: Date.now(),
+            username: currentUser,
+            amount: amount,
+            term: term,
+            status: 'pending',
+            date: new Date().toISOString()
+        });
+        
+        localStorage.setItem('creditRequests', JSON.stringify(creditRequests));
+        
+        showNotification('Заявка на кредит отправлена! Ожидайте одобрения.', 'warning');
+        closeModal('credit-modal');
+        document.getElementById('credit-form').reset();
+    });
+
+    // ATM form
+    document.getElementById('atm-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('atm-username').value;
+        const amount = parseFloat(document.getElementById('atm-amount').value);
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        if (!users[username]) {
+            showNotification('Пользователь не найден!', 'error');
+            return;
+        }
+        
+        if (users[username].balance < amount) {
+            showNotification('Недостаточно средств на счете!', 'error');
+            return;
+        }
+        
+        const atmRequests = JSON.parse(localStorage.getItem('atmRequests'));
+        
+        atmRequests.push({
+            id: Date.now(),
+            username: username,
+            amount: amount,
+            status: 'pending',
+            date: new Date().toISOString()
+        });
+        
+        localStorage.setItem('atmRequests', JSON.stringify(atmRequests));
+        
+        showNotification('Заявка на вывод отправлена! Статус: Ожидание', 'warning');
+        document.getElementById('atm-form').reset();
+        updateATMRequests();
+    });
+
+    // Update ATM requests
+    function updateATMRequests() {
+        const atmRequests = JSON.parse(localStorage.getItem('atmRequests'));
+        const requestsList = document.getElementById('atm-requests-list');
+        
+        if (atmRequests.length === 0) {
+            requestsList.innerHTML = '<p style="color: var(--text-gray);">Нет заявок</p>';
+            return;
+        }
+        
+        requestsList.innerHTML = atmRequests
+            .slice(-10)
+            .reverse()
+            .map(req => `
+                <div class="request-item">
+                    <div>
+                        <div><strong>${req.username}</strong></div>
+                        <div style="color: var(--text-gray);">${req.amount} ₽</div>
+                        <div style="color: var(--text-gray); font-size: 0.85rem;">
+                            ${new Date(req.date).toLocaleString('ru-RU')}
+                        </div>
+                    </div>
+                    <span class="request-status ${req.status}">
+                        ${req.status === 'pending' ? 'Ожидание' : 
+                          req.status === 'approved' ? 'Одобрено' : 'Отклонено'}
+                    </span>
+                </div>
+            `).join('');
+    }
+
+    // Admin login
+    document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('admin-username').value;
+        const password = document.getElementById('admin-password').value;
+        
+        if (username === 'admin' && password === 'admin') {
+            isAdmin = true;
+            showNotification('Вход в админ-панель выполнен!', 'success');
+            showPage('admin');
+            document.getElementById('admin-login-form').reset();
+        } else {
+            showNotification('Неверные учетные данные администратора!', 'error');
+        }
+    });
+
+    // Admin logout
+    function adminLogout() {
+        isAdmin = false;
+        showNotification('Выход из админ-панели', 'success');
+        showPage('home');
+    }
+
+    // Switch admin tabs
+    function switchAdminTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelectorAll('.admin-tab').forEach(tabContent => {
+            tabContent.classList.remove('active');
+        });
+        
+        event.target.classList.add('active');
+        document.getElementById(`admin-${tab}-tab`).classList.add('active');
+    }
+
+    // Update admin panel
+    function updateAdminPanel() {
+        updateAdminCredits();
+        updateAdminATM();
+    }
+
+    // Update admin credits
+    function updateAdminCredits() {
+        const creditRequests = JSON.parse(localStorage.getItem('creditRequests'));
+        const creditsList = document.getElementById('admin-credits-list');
+        
+        const pendingRequests = creditRequests.filter(req => req.status === 'pending');
+        
+        if (pendingRequests.length === 0) {
+            creditsList.innerHTML = '<p style="color: var(--text-gray);">Нет заявок на кредит</p>';
+            return;
+        }
+        
+        creditsList.innerHTML = pendingRequests.map(req => `
+            <div class="admin-request">
+                <div class="request-header">
+                    <span class="request-user">${req.username}</span>
+                    <span style="color: var(--text-gray);">${new Date(req.date).toLocaleString('ru-RU')}</span>
+                </div>
+                <div class="request-details">
+                    <div>Сумма: <strong>${req.amount} ₽</strong></div>
+                    <div>Срок: <strong>${req.term} месяцев</strong></div>
+                </div>
+                <div class="request-actions">
+                    <button class="approve-btn" onclick="approveCredit(${req.id})">Подтвердить</button>
+                    <button class="reject-btn" onclick="rejectCredit(${req.id})">Отклонить</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Update admin ATM
+    function updateAdminATM() {
+        const atmRequests = JSON.parse(localStorage.getItem('atmRequests'));
+        const atmList = document.getElementById('admin-atm-list');
+        
+        const pendingRequests = atmRequests.filter(req => req.status === 'pending');
+        
+        if (pendingRequests.length === 0) {
+            atmList.innerHTML = '<p style="color: var(--text-gray);">Нет заявок на вывод</p>';
+            return;
+        }
+        
+        atmList.innerHTML = pendingRequests.map(req => `
+            <div class="admin-request">
+                <div class="request-header">
+                    <span class="request-user">${req.username}</span>
+                    <span style="color: var(--text-gray);">${new Date(req.date).toLocaleString('ru-RU')}</span>
+                </div>
+                <div class="request-details">
+                    <div>Сумма вывода: <strong>${req.amount} ₽</strong></div>
+                </div>
+                <div class="request-actions">
+                    <button class="approve-btn" onclick="approveATM(${req.id})">Подтвердить</button>
+                    <button class="reject-btn" onclick="rejectATM(${req.id})">Отклонить</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Approve credit
+    function approveCredit(requestId) {
+        const creditRequests = JSON.parse(localStorage.getItem('creditRequests'));
+        const request = creditRequests.find(req => req.id === requestId);
+        
+        if (!request) return;
+        
+        // Update user balance
+        const users = JSON.parse(localStorage.getItem('users'));
+        users[request.username].balance += request.amount;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Update request status
+        request.status = 'approved';
+        localStorage.setItem('creditRequests', JSON.stringify(creditRequests));
+        
+        // Add transaction
+        const transactions = JSON.parse(localStorage.getItem('transactions'));
+        transactions.push({
+            id: Date.now(),
+            type: 'Кредит одобрен',
+            from: 'Банк',
+            to: request.username,
+            amount: request.amount,
+            date: new Date().toISOString()
+        });
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        
+        showNotification(`Кредит ${request.amount} ₽ одобрен для ${request.username}!`, 'success');
+        updateAdminPanel();
+    }
+
+    // Reject credit
+    function rejectCredit(requestId) {
+        const creditRequests = JSON.parse(localStorage.getItem('creditRequests'));
+        const request = creditRequests.find(req => req.id === requestId);
+        
+        if (!request) return;
+        
+        request.status = 'rejected';
+        localStorage.setItem('creditRequests', JSON.stringify(creditRequests));
+        
+        showNotification(`Кредит для ${request.username} отклонен`, 'error');
+        updateAdminPanel();
+    }
+
+    // Approve ATM withdrawal
+    function approveATM(requestId) {
+        const atmRequests = JSON.parse(localStorage.getItem('atmRequests'));
+        const request = atmRequests.find(req => req.id === requestId);
+        
+        if (!request) return;
+        
+        // Update user balance
+        const users = JSON.parse(localStorage.getItem('users'));
+        users[request.username].balance -= request.amount;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Update request status
+        request.status = 'approved';
+        localStorage.setItem('atmRequests', JSON.stringify(atmRequests));
+        
+        // Add transaction
+        const transactions = JSON.parse(localStorage.getItem('transactions'));
+        transactions.push({
+            id: Date.now(),
+            type: 'Вывод через банкомат',
+            from: request.username,
+            to: 'Банкомат',
+            amount: request.amount,
+            date: new Date().toISOString()
+        });
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        
+        showNotification(`Вывод ${request.amount} ₽ одобрен для ${request.username}!`, 'success');
+        updateAdminPanel();
+    }
+
+    // Reject ATM withdrawal
+    function rejectATM(requestId) {
+        const atmRequests = JSON.parse(localStorage.getItem('atmRequests'));
+        const request = atmRequests.find(req => req.id === requestId);
+        
+        if (!request) return;
+        
+        request.status = 'rejected';
+        localStorage.setItem('atmRequests', JSON.stringify(atmRequests));
+        
+        showNotification(`Вывод для ${request.username} отклонен`, 'error');
+        updateAdminPanel();
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.classList.remove('active');
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        initDatabase();
+        showPage('home');
+    });
+</script>
 ```
 
 </body>
